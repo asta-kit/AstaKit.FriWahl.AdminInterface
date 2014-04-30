@@ -1,0 +1,55 @@
+<?php
+namespace AstaKit\FriWahl\AdminInterface\Controller;
+
+/*                                                                                  *
+ * This script belongs to the TYPO3 Flow package "AstaKit.FriWahl.AdminInterface".  *
+ *                                                                                  *
+ *                                                                                  */
+
+use AstaKit\FriWahl\Core\Domain\Model\BallotBox;
+use AstaKit\FriWahl\Core\Domain\Model\Election;
+use AstaKit\FriWahl\Core\Domain\Repository\BallotBoxRepository;
+use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Mvc\Controller\ActionController;
+
+
+/**
+ * Controller for managing ballot boxes
+ *
+ * @author Andreas Wolf <andreas.wolf@usta.de>
+ */
+class BallotBoxController extends ActionController {
+
+	/**
+	 * @var BallotBoxRepository
+	 * @Flow\Inject
+	 */
+	protected $ballotBoxRepository;
+
+	/**
+	 * @param Election $election
+	 * @return void
+	 */
+	public function newAction(Election $election) {
+		$this->view->assign('election', $election);
+	}
+
+	/**
+	 * @param BallotBox $ballotBox
+	 * @return void
+	 */
+	public function createAction(BallotBox $ballotBox) {
+		$this->ballotBoxRepository->add($ballotBox);
+
+		$this->redirect('show', 'Election', NULL, array('election' => $ballotBox->getElection()));
+	}
+
+	/**
+	 * @param BallotBox $ballotBox
+	 * @return void
+	 */
+	public function showAction(BallotBox $ballotBox) {
+		$this->view->assign('ballotBox', $ballotBox);
+	}
+
+}

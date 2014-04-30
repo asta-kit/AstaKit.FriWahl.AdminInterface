@@ -1,0 +1,36 @@
+<f:layout name="Default" />
+
+<f:section name="Title">{election.name}</f:section>
+
+<f:section name="Content">
+	<table>
+		<tbody>
+		<tr>
+			<th>Name</th>
+			<td>{election.name}</td>
+		</tr>
+		<tr>
+			<th>Erstellt</th>
+			<td>{election.created -> f:format.date()}</td>
+		</tr>
+		<tr>
+			<th>Wahlzeiträume</th>
+			<td>
+				<f:render partial="ElectionPeriodList" arguments="{periods: election.periods}" />
+				<f:link.action action="newPeriod" arguments="{election: election}">Neuen Wahlzeitraum anlegen</f:link.action>
+			</td>
+		</tr>
+		<tr>
+			<th>Wahlurnen</th>
+			<td>
+				<ul>
+					<f:for each="{election.ballotBoxes}" as="ballotBox">
+					<li><f:link.action action="show" controller="BallotBox" arguments="{ballotBox: ballotBox}">{ballotBox.name}</f:link.action></li>
+					</f:for>
+				</ul>
+				<f:link.action action="new" controller="BallotBox" arguments="{election: election}">Neue Urne anlegen</f:link.action>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</f:section>

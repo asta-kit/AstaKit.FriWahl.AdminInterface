@@ -1,0 +1,13 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Wahlurne anlegen</f:section>
+
+<f:section name="Content">
+	<f:form action="create" object="{ballotBox}" name="ballotBox">
+		<label>Wahl</label><f:form.hidden property="election" value="{election}" />{election.name}
+
+		<label for="ballotBox[name]">Name</label><f:form.textfield property="name" />
+
+		<f:form.submit value="Urne anlegen" />
+	</f:form>
+</f:section>
