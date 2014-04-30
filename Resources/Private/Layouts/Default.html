@@ -6,6 +6,13 @@
 		<f:base />
 	</head>
 	<body>
+		<p>
+		<f:security.ifAuthenticated>
+			<f:then>Angemeldet als {currentUser.accountIdentifier} – {currentUser.party.name} &bull; <f:link.action action="logout" controller="Login" package="AstaKit.FriWahl.AdminInterface">Abmelden</f:link.action></f:then>
+			<f:else>Nicht angemeldet</f:else>
+		</f:security.ifAuthenticated>
+		</p>
+
 		<f:flashMessages class="flashmessages" />
 
 		<h1><f:render section="Title" /></h1>
