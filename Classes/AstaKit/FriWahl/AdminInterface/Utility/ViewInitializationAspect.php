@@ -28,6 +28,16 @@ class ViewInitializationAspect {
 	protected $securityContext;
 
 	/**
+	 * The settings for all AstaKit.FriWahl packages; this is a hack because the mechanism that writes
+	 * the settings injector (in Flow's Dependency Injection Builder) does not natively support injecting a complete
+	 * package's setting; therefore we split the package key to get the settings
+	 *
+	 * @var array
+	 * @Flow\Inject(package="AstaKit",setting="FriWahl")
+	 */
+	protected $globalSettings;
+
+	/**
 	 * Assigns default variables like the currently logged-in user to the view.
 	 *
 	 * @param JoinPointInterface $joinPoint
@@ -39,5 +49,8 @@ class ViewInitializationAspect {
 
 		$currentUserAccount = $this->securityContext->getAccount();
 		$view->assign('currentUser', $currentUserAccount);
+
+		// make the global settings available in the view
+		$view->assign('settings', $this->globalSettings);
 	}
 }
