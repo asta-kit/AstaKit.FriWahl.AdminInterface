@@ -1,0 +1,15 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Wahlurne <em>{ballotBox.identifier}</em></f:section>
+
+<f:section name="Content">
+	<label>Wahl</label> {ballotBox.election.name}
+
+	<label for="ballotBox[identifier]">eindeutige ID</label> {ballotBox.identifier}
+
+	<label for="ballotBox[name]">Name</label> {ballotBox.name}
+
+	<label for="ballotBox[sshPublicKey]">öffentlicher SSH-Schlüssel</label> <pre>{ballotBox.sshPublicKey}</pre>
+
+	<f:link.action action="edit" arguments="{ballotBox: ballotBox}">Urne bearbeiten</f:link.action>
+</f:section>

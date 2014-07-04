@@ -52,4 +52,23 @@ class BallotBoxController extends ActionController {
 		$this->view->assign('ballotBox', $ballotBox);
 	}
 
+	/**
+	 * @param BallotBox $ballotBox
+	 * @return void
+	 */
+	public function editAction(BallotBox $ballotBox) {
+		$this->view->assign('ballotBox', $ballotBox);
+	}
+
+	/**
+	 * @param BallotBox $ballotBox
+	 * @return void
+	 */
+	public function updateAction(BallotBox $ballotBox) {
+		$this->ballotBoxRepository->update($ballotBox);
+		$this->addFlashMessage('Ballot box updated successfully.');
+
+		$this->forward('show', 'Election', NULL, array('election' => $ballotBox->getElection()));
+	}
+
 }
