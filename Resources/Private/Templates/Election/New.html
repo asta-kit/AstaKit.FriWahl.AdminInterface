@@ -8,6 +8,9 @@
 		<label for="election[name]">Name</label>
 		<f:form.textfield property="name" />
 
+		<label for="election[identifier]">Kurzbezeichnung (nur A-Z, a-z, 0-9, -, _, +, .)</label>
+		<f:form.textfield property="identifier" size="20" maxlength="20" />
+
 		<label for="election[test]"><f:form.checkbox property="test" value="1" /> Diese Wahl ist eine Testwahl</label>
 
 		<f:form.submit value="Anlegen" />
