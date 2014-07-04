@@ -25,7 +25,7 @@
 			<td>
 				<ul>
 					<f:for each="{election.ballotBoxes}" as="ballotBox">
-					<li><f:link.action action="show" controller="BallotBox" arguments="{ballotBox: ballotBox}">{ballotBox.name}</f:link.action></li>
+					<li><f:link.action action="show" controller="BallotBox" arguments="{ballotBox: ballotBox}">{ballotBox.identifier} ({ballotBox.name})</f:link.action></li>
 					</f:for>
 				</ul>
 				<f:link.action action="new" controller="BallotBox" arguments="{election: election}">Neue Urne anlegen</f:link.action>

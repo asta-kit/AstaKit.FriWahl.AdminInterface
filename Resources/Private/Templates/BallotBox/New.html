@@ -6,6 +6,8 @@
 	<f:form action="create" object="{ballotBox}" name="ballotBox">
 		<label>Wahl</label><f:form.hidden property="election" value="{election}" />{election.name}
 
+		<label for="ballotBox[identifier]">eindeutige ID</label><f:form.textfield property="identifier" />
+
 		<label for="ballotBox[name]">Name</label><f:form.textfield property="name" />
 
 		<f:form.submit value="Urne anlegen" />
