@@ -6,6 +6,8 @@ namespace AstaKit\FriWahl\AdminInterface\Controller;
  *                                                                                  *
  *                                                                                  */
 
+use AstaKit\FriWahl\Core\Domain\Repository\ElectionRepository;
+use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 
 
@@ -17,9 +19,17 @@ use TYPO3\Flow\Mvc\Controller\ActionController;
 class StandardController extends ActionController {
 
 	/**
+	 * @var ElectionRepository
+	 * @Flow\Inject
+	 */
+	protected $electionRepository;
+
+
+	/**
 	 *
 	 */
 	public function indexAction() {
-
+		$elections = $this->electionRepository->findAll();
+		$this->view->assign('elections', $elections);
 	}
 }
