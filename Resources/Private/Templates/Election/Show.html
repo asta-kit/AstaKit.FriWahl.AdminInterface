@@ -21,6 +21,13 @@
 			</td>
 		</tr>
 		<tr>
+			<th>Abstimmungen</th>
+			<td>
+				<f:render partial="VotingList" arguments="{votings: election.votings}" />
+				<f:link.action action="new" controller="Voting" arguments="{election: election}">Neue Abstimmung anlegen</f:link.action>
+			</td>
+		</tr>
+		<tr>
 			<th>Wahlurnen</th>
 			<td>
 				<ul>
