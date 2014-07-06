@@ -43,6 +43,8 @@ class BallotBoxCommandController extends CommandController {
 		}
 
 		$this->persistenceManager->add($ballotBox);
+
+		$this->outputLine('Ballot box ' . $identifier . ' successfully created.');
 	}
 
 	public function listCommand(Election $election) {
