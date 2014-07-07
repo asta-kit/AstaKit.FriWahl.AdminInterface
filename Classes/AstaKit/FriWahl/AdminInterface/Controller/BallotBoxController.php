@@ -71,4 +71,32 @@ class BallotBoxController extends ActionController {
 		$this->forward('show', 'Election', NULL, array('election' => $ballotBox->getElection()));
 	}
 
+	/**
+	 * Emit a ballot box, making it available for voting.
+	 *
+	 * @param BallotBox $ballotBox
+	 */
+	public function emitAction(BallotBox $ballotBox) {
+		$ballotBox->emit();
+		$this->ballotBoxRepository->update($ballotBox);
+
+		$this->addFlashMessage('Urne wurde ausgegeben.');
+
+		$this->redirect('show', NULL, NULL, array('ballotBox' => $ballotBox));
+	}
+
+	/**
+	 * Return a ballot box, making it unavailable for voting.
+	 *
+	 * @param BallotBox $ballotBox
+	 */
+	public function returnAction(BallotBox $ballotBox) {
+		$ballotBox->returnBox();
+		$this->ballotBoxRepository->update($ballotBox);
+
+		$this->addFlashMessage('Urne wurde zurückgenommen.');
+
+		$this->redirect('show', NULL, NULL, array('ballotBox' => $ballotBox));
+	}
+
 }

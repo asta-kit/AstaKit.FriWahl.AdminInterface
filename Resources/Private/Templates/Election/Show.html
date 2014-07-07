@@ -30,11 +30,16 @@
 		<tr>
 			<th>Wahlurnen</th>
 			<td>
-				<ul>
-					<f:for each="{election.ballotBoxes}" as="ballotBox">
-					<li><f:link.action action="show" controller="BallotBox" arguments="{ballotBox: ballotBox}">{ballotBox.identifier} ({ballotBox.name})</f:link.action></li>
-					</f:for>
-				</ul>
+				<table>
+					<tr>
+						<th>Urne</th>
+						<th>Status</th>
+					</tr>
+					<f:for each="{election.ballotBoxes}" as="ballotBox"><tr>
+						<td><f:link.action action="show" controller="BallotBox" arguments="{ballotBox: ballotBox}">{ballotBox.identifier} ({ballotBox.name})</f:link.action></td>
+						<td>{ballotBox.statusText}</td>
+					</tr></f:for>
+				</table>
 				<f:link.action action="new" controller="BallotBox" arguments="{election: election}">Neue Urne anlegen</f:link.action>
 			</td>
 		</tr>
