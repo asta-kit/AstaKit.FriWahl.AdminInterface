@@ -48,7 +48,21 @@ class BallotBoxCommandController extends CommandController {
 	}
 
 	public function listCommand(Election $election) {
-		// TODO implement
+		$this->outputLine(str_pad('Ballot box', 40, ' ', STR_PAD_BOTH) . ' |   Status   | Pending | Committed |  Total  |');
+
+		/** @var $ballotBox BallotBox */
+		foreach ($election->getBallotBoxes() as $ballotBox) {
+			$pendingVotes = $ballotBox->getQueuedVotesCount();
+			$committedVotes = $ballotBox->getCommittedVotesCount();
+			$totalVotes = $pendingVotes + $committedVotes;
+
+			$this->outputLine(
+				str_pad($ballotBox->getIdentifier(), 40, ' ', STR_PAD_RIGHT) . ' | '
+				. str_pad($ballotBox->getStatusText(), 10, ' ', STR_PAD_LEFT) . ' | '
+				. str_pad($pendingVotes, 7, ' ', STR_PAD_LEFT) . ' | '
+				. str_pad($committedVotes, 9, ' ', STR_PAD_LEFT) . ' | '
+				. str_pad($totalVotes, 7, ' ', STR_PAD_LEFT) . ' | ');
+		}
 	}
 
 }
