@@ -47,6 +47,11 @@ class BallotBoxCommandController extends CommandController {
 		$this->outputLine('Ballot box ' . $identifier . ' successfully created.');
 	}
 
+	/**
+	 * Lists all ballot boxes and their status
+	 *
+	 * @param Election $election
+	 */
 	public function listCommand(Election $election) {
 		$this->outputLine(str_pad('Ballot box', 40, ' ', STR_PAD_BOTH) . ' |   Status   | Pending | Committed |  Total  |');
 
@@ -63,6 +68,42 @@ class BallotBoxCommandController extends CommandController {
 				. str_pad($committedVotes, 9, ' ', STR_PAD_LEFT) . ' | '
 				. str_pad($totalVotes, 7, ' ', STR_PAD_LEFT) . ' | ');
 		}
+	}
+
+	/**
+	 * Emits a ballot box, making it available for voting.
+	 *
+	 * @param BallotBox $ballotBox
+	 */
+	public function emitCommand(BallotBox $ballotBox) {
+		try {
+			$ballotBox->emit();
+
+			$this->persistenceManager->update($ballotBox);
+		} catch (\Exception $e) {
+			$this->outputLine('Urne konnte nicht ausgegeben werden: %s (%d)', array($e->getMessage(), $e->getCode()));
+		}
+
+		$this->outputLine('Urne %s erfolgreich ausgegeben.', array($ballotBox->getIdentifier()));
+	}
+
+	/**
+	 * Returns a ballot box, locking it for voting sessions.
+	 *
+	 * @param BallotBox $ballotBox
+	 */
+	public function returnCommand(BallotBox $ballotBox) {
+		try {
+			$ballotBox->returnBox();
+
+			$this->persistenceManager->update($ballotBox);
+		} catch (\Exception $e) {
+			$this->outputLine('Urne konnte nicht zurückgenommen werden: %s (%d)', array($e->getMessage(), $e->getCode()));
+
+			return;
+		}
+
+		$this->outputLine('Urne %s erfolgreich zurückgenommen.', array($ballotBox->getIdentifier()));
 	}
 
 }
